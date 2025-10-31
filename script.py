@@ -53,18 +53,18 @@ def tratar_avaliacoes(df):
     return df
 
 def tratar_engajamento(df):
-    print("Iniciando Etapa 3: Tratar Engajamento_PIGS...")
+    print("Iniciando Etapa 3: Tratar Engajamento_PIGs...")
     
-    df['Engajamento_PIGS'] = df['Engajamento_PIGs'].replace('$N/A^{\prime}', np.nan)
+    df['Engajamento_PIGs'] = df['Engajamento_PIGs'].replace('$N/A^{\prime}', np.nan)
     
     # Limpa o '%' e converte para numérico
-    df['Engajamento_PIGS'] = df['Engajamento_PIGS'].str.replace('%', '', regex=False)
-    df['Engajamento_PIGS'] = pd.to_numeric(df['Engajamento_PIGS'], errors='coerce')
-    df['Engajamento_PIGS'] = df['Engajamento_PIGS'] / 100
+    df['Engajamento_PIGs'] = df['Engajamento_PIGs'].str.replace('%', '', regex=False)
+    df['Engajamento_PIGs'] = pd.to_numeric(df['Engajamento_PIGs'], errors='coerce')
+    df['Engajamento_PIGs'] = df['Engajamento_PIGs'] / 100
     
-    media_engajamento = df['Engajamento_PIGS'].mean()
+    media_engajamento = df['Engajamento_PIGs'].mean()
     
-    df['Engajamento_PIGS'].fillna(media_engajamento, inplace=True)
+    df['Engajamento_PIGs'].fillna(media_engajamento, inplace=True)
     
     return df
 
@@ -75,7 +75,7 @@ def criar_colunas_calculadas(df):
     
     print("Iniciando Etapa 5: Criar Status_Membro...")
     
-    condicao_destaque = (df['Score_Desempenho'] >= 7.0) & (df['Engajamento_PIGS'] >= 0.8)
+    condicao_destaque = (df['Score_Desempenho'] >= 7.0) & (df['Engajamento_PIGs'] >= 0.8)
     
     df['Status_Membro'] = np.where(condicao_destaque, 'Em Destaque', 'Padrão')
     
